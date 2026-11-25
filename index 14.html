@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Leonida">
+<meta name="theme-color" content="#000000"><link rel="apple-touch-icon" href="IMG_9971.jpeg"><link rel="icon" href="IMG_9971.jpeg"><title>Leonida (Unofficial Fan Project)</title>
+<style>
+html,body{margin:0;height:100%;background:#000;overflow:hidden;color:#fff;font-family:"Avenir Next",Futura,"Trebuchet MS",sans-serif;touch-action:none;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+:root{--w:100vw;--h:56.25vw}
+button{font:inherit;color:#fff}
+#plw{position:fixed;top:0;left:0;right:0;bottom:0;overflow:hidden;background:#000}
+#pl{position:absolute;left:50%;top:50%;width:var(--w);height:var(--h);transform:translate(-50%,-50%);border:0;pointer-events:none}
+.neon{font-weight:600;letter-spacing:.4em;font-size:14px;padding:13px 24px 13px 32px;border:1.5px solid #c08bff;border-radius:3px;background:rgba(138,61,255,.1);text-shadow:0 0 6px #d4b0ff,0 0 16px #a96bff;box-shadow:0 0 8px #a96bff,0 0 22px rgba(138,61,255,.5),inset 0 0 12px rgba(138,61,255,.45)}
+.neon:active{background:rgba(169,107,255,.45)}
+#title{position:fixed;top:0;left:0;right:0;bottom:0;z-index:10;display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden;transition:opacity .6s}
+#title.off{opacity:0;pointer-events:none}
+#title::before,#title::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:orb 14s ease-in-out infinite alternate}
+#title::before{width:55vmax;height:55vmax;left:-16vmax;top:-22vmax;background:#7a2cff}
+#title::after{width:50vmax;height:50vmax;right:-18vmax;bottom:-24vmax;background:#ff2fa8;animation-delay:-6s}
+@keyframes orb{to{transform:translate(8vmax,6vmax) scale(1.12)}}
+#tmain,#tsub{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;align-items:stretch;width:min(300px,78vw);text-align:center}
+#tsub{display:none}
+.tb{font-size:13px;letter-spacing:.35em;padding:14px 10px 14px 18px}
+#cont{display:none}
+#subt{letter-spacing:.6em;font-size:12px;opacity:.8;margin-bottom:4px;padding-left:.6em}
+#subb{display:flex;flex-direction:column;gap:12px}
+#subtx{font-size:12px;line-height:1.6;opacity:.85;letter-spacing:.04em;text-shadow:0 1px 6px #000}
+#note{position:absolute;bottom:calc(10px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;font-size:11px;opacity:.4}
+#cover{position:fixed;top:0;left:0;right:0;bottom:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;z-index:20;transition:opacity .6s}
+#cover.hide{opacity:0;pointer-events:none}
+#go{display:none;font-size:13px;letter-spacing:.3em;padding:12px 28px 12px 34px}
+#msg{font-size:15px;opacity:.9;max-width:440px}
+#hud{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:15;pointer-events:none}
+#hud.on{display:block}
+#gear{pointer-events:auto;position:absolute;top:calc(14px + env(safe-area-inset-top));right:calc(18px + env(safe-area-inset-right));width:44px;height:44px;border-radius:50%;border:1.5px solid #c08bff;background:rgba(10,3,20,.35);box-shadow:0 0 8px #a96bff,inset 0 0 8px rgba(138,61,255,.4);display:flex;align-items:center;justify-content:center;padding:0}
+#gear:active{background:rgba(169,107,255,.5)}
+.stick{pointer-events:auto;position:absolute;bottom:calc(34px + env(safe-area-inset-bottom));width:150px;height:150px;border-radius:50%;border:2px solid rgba(255,255,255,.4);background:rgba(255,255,255,.06)}
+#jl{left:calc(40px + env(safe-area-inset-left))}#jr{right:calc(40px + env(safe-area-inset-right))}
+.kn{position:absolute;left:47px;top:47px;width:56px;height:56px;border-radius:50%;background:rgba(169,107,255,.75);box-shadow:0 0 14px rgba(169,107,255,.6)}
+#skip{display:none;position:fixed;right:calc(18px + env(safe-area-inset-right));bottom:calc(22px + env(safe-area-inset-bottom));z-index:16;font-size:12px;padding:11px 16px 11px 22px}
+#menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:25;background:rgba(4,1,10,.97);align-items:center;justify-content:center}
+#menu.on{display:flex}
+.mbox{display:flex;flex-direction:column;gap:10px;align-items:stretch;width:min(320px,80vw);text-align:center}
+.mt{letter-spacing:.6em;font-size:12px;opacity:.7;margin-bottom:6px;padding-left:.6em}
+.mb{font-size:13px;letter-spacing:.35em;padding:13px 10px 13px 18px}
+#mtext{font-size:12px;line-height:1.6;opacity:.85;min-height:16px;letter-spacing:.04em}
+#conf{display:none;gap:10px;align-items:center;justify-content:center;font-size:12px}
+#conf button{font-size:11px;padding:9px 16px 9px 20px;letter-spacing:.25em}
+</style></head><body>
+<div id="plw"><div id="pl"></div></div>
+<div id="hud"><button id="gear" aria-label="Settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></svg></button>
+<div class="stick" id="jl"><div class="kn" id="kl"></div></div><div class="stick" id="jr"><div class="kn" id="kr"></div></div></div>
+<button id="skip" class="neon">SKIP</button>
+<div id="title"><div id="tmain"><button id="cont" class="neon tb">CONTINUE</button><button id="start" class="neon tb">START GAME</button><button id="tset" class="neon tb">SETTINGS</button><button id="tcred" class="neon tb">CREDITS</button></div>
+<div id="tsub"><div id="subt"></div><div id="subb"></div><button id="tback" class="neon tb">BACK</button></div><div id="note">Unofficial fan project. Not affiliated with Rockstar Games.</div></div>
+<div id="menu"><div class="mbox"><div class="mt">PAUSED</div>
+<button class="neon mb" id="mres">RESUME</button><button class="neon mb" id="msave">SAVE</button><button class="neon mb" id="mexit">SAVE &amp; EXIT</button><button class="neon mb" id="mcred">CREDITS</button><button class="neon mb" id="mquit">QUIT</button>
+<div id="conf"><span>Quit without saving?</span><button class="neon" id="cy">YES</button><button class="neon" id="cn">NO</button></div><div id="mtext"></div></div></div>
+<div id="cover" class="hide"><div id="msg"></div><button id="go" class="neon">CONTINUE</button></div>
+<script>
+var IDS=['l4ukT5Ie-Go','R97EoVD1nr4'],LAST=1,i=0,P=null,ready=false,failed=false,iv=null,gt=null,adv=false,tapAct=null,menuOpen=false,pend={n:0,t:0},cnt=0,MEM={};
+function $(s){return document.getElementById(s)}
+function sget(){try{return JSON.parse(localStorage.getItem('lc_save'))}catch(e){return MEM.s||null}}
+function sset(v){try{if(v)localStorage.setItem('lc_save',JSON.stringify(v));else localStorage.removeItem('lc_save')}catch(e){MEM.s=v}}
+function showCont(){var s=sget();$('cont').style.display=(s&&s.t>5)?'block':'none'}showCont();
+var ys=document.createElement('script');ys.src='https://www.youtube.com/iframe_api';ys.onerror=function(){failed=true};document.head.appendChild(ys);
+window.onYouTubeIframeAPIReady=function(){ready=true};
+function fit(){var vw=innerWidth,vh=innerHeight,w=Math.max(vw,vh*16/9);document.documentElement.style.setProperty('--w',w+'px');document.documentElement.style.setProperty('--h',(w*9/16)+'px')}
+fit();addEventListener('resize',fit);
+function hud(on){$('skip').style.display=(on&&i===0)?'block':'none';$('hud').classList.toggle('on',!!on&&i===LAST)}
+function black(){$('go').style.display='none';$('msg').textContent='';$('cover').className='';$('plw').classList.remove('tap')}
+function hideCover(){$('cover').className='hide';$('plw').classList.remove('tap')}
+function prompt2(t,fn){tapAct=fn;$('msg').textContent=t;$('go').style.display='block';$('cover').className='';$('plw').classList.remove('tap')}
+var at=null,att=0;
+function blocked(){att=0;prompt2('Tap to continue with sound',attempt)}
+function attempt(){att++;try{P.unMute();P.setVolume(100);var t=P.getCurrentTime?(P.getCurrentTime()||0):0;if(att===1)P.playVideo();else P.loadVideoById({videoId:IDS[i],startSeconds:t,suggestedQuality:'hd1080'})}catch(x){}
+ clearTimeout(at);at=setTimeout(function(){if(!P||menuOpen)return;var s=P.getPlayerState();if(s===1||s===3)return;if(att<2)attempt();else blocked()},1100)}
+$('go').onclick=function(){var f=tapAct;tapAct=null;$('go').style.display='none';$('msg').textContent='';if(f)f()};
+var SET=(function(){try{return JSON.parse(localStorage.getItem('lc_set'))||{}}catch(e){return {}}})();
+function setSave(){try{localStorage.setItem('lc_set',JSON.stringify(SET))}catch(e){}}
+function view(sub){$('tmain').style.display=sub?'none':'flex';$('tsub').style.display=sub?'flex':'none'}
+function subView(t,fill){view(true);$('subt').textContent=t;var b=$('subb');b.innerHTML='';fill(b)}
+function mkb(txt,fn){var e=document.createElement('button');e.className='neon tb';e.textContent=txt;e.onclick=fn;return e}
+function mkt(txt){var e=document.createElement('div');e.id='subtx';e.textContent=txt;return e}
+$('start').onclick=function(){$('title').classList.add('off');pend={n:SET.skip?1:0,t:0};begin()};
+$('tset').onclick=function(){subView('SETTINGS',function(b){var r=mkb('',function(){SET.skip=!SET.skip;setSave();lab()});function lab(){r.textContent='SKIP INTRO: '+(SET.skip?'ON':'OFF')}lab();b.appendChild(r);
+ b.appendChild(mkb('DELETE SAVE',function(){sset(null);showCont();this.textContent='SAVE DELETED'}));b.appendChild(mkt('Volume: use your device volume buttons.'))})};
+$('tcred').onclick=function(){subView('CREDITS',function(b){b.appendChild(mkt('Created by Christian Batmanian with Claude (AI assistant by Anthropic). Unofficial fan project. Not affiliated with or endorsed by Rockstar Games or Take-Two Interactive. Grand Theft Auto is a trademark of its owners. Videos are streamed from YouTube and belong to their owners. The on-screen sticks are decorative and do not control the video.'))})};
+$('tback').onclick=function(){view(false)};
+$('cont').onclick=function(){var s=sget();if(!s)return;$('title').classList.add('off');pend={n:LAST,t:s.t};begin()};
+function begin(){black();var n=0,w=setInterval(function(){if(ready){clearInterval(w);mk()}else if(failed||++n>100){clearInterval(w);prompt2('Could not load YouTube. Check your connection, then tap to retry.',begin)}},100)}
+function mk(){i=pend.n;adv=false;$('plw').innerHTML='<div id="pl"></div>';P=new YT.Player('pl',{videoId:IDS[i],playerVars:{autoplay:1,controls:0,disablekb:1,fs:0,playsinline:1,rel:0,modestbranding:1,iv_load_policy:3,cc_load_policy:0,vq:'hd1080',start:Math.floor(pend.t||0),enablejsapi:1},
+ events:{onReady:function(e){e.target.unMute();e.target.setVolume(100);try{e.target.setPlaybackQuality('hd1080')}catch(x){}e.target.playVideo();guard()},onStateChange:st,onError:err}});iv=setInterval(tick,300)}
+function guard(){clearTimeout(gt);gt=setTimeout(function(){if(menuOpen||!P||!P.getPlayerState)return;var s=P.getPlayerState();
+ if(s!==1&&s!==3)blocked();
+ else if(P.isMuted&&P.isMuted())prompt2('Tap to turn the sound on',function(){P.unMute();P.setVolume(100);hideCover()})},2500)}
+function play(n,t){i=n;adv=false;hud(false);P.loadVideoById({videoId:IDS[n],startSeconds:t||0,suggestedQuality:'hd1080'});P.unMute();P.setVolume(100);guard()}
+function st(e){if(e.data===1){clearTimeout(gt);clearTimeout(at);att=0;hideCover();hud(true);try{P.unMute();P.setVolume(100);P.setPlaybackQuality('hd1080');P.unloadModule('captions')}catch(x){}}
+ if(e.data===2&&!document.hidden&&!menuOpen){setTimeout(function(){if(!menuOpen&&P.getPlayerState()===2)P.playVideo()},150)}
+ if(e.data===0)next()}
+function tick(){if(P&&P.getPlayerState&&P.getPlayerState()===1&&!adv){var d=P.getDuration(),t=P.getCurrentTime();if(i===LAST&&++cnt%33===0)sset({t:t,ts:Date.now()});if(d>5&&t>=d-.7)next()}}
+function next(){if(adv)return;adv=true;hud(false);if(i===LAST)sset(null);black();setTimeout(function(){if(i<LAST)play(i+1,0);else toTitle()},650)}
+function err(){prompt2('This video is unavailable. Tap to continue.',function(){adv=false;next()})}
+function toTitle(){clearInterval(iv);clearTimeout(gt);menuOpen=false;try{P.stopVideo();P.destroy()}catch(x){}P=null;$('plw').innerHTML='<div id="pl"></div>';hud(false);showCont();view(false);hideCover();$('title').classList.remove('off')}
+$('skip').onclick=function(){if(!P||i!==0)return;clearTimeout(gt);hud(false);black();play(1,0)};
+// settings menu
+function openMenu(){if(!P||!P.pauseVideo||i!==LAST)return;menuOpen=true;clearTimeout(gt);try{P.pauseVideo()}catch(x){}$('mtext').textContent='';$('conf').style.display='none';$('menu').classList.add('on')}
+function closeMenu(){$('menu').classList.remove('on')}
+function persist(){try{var t=P.getCurrentTime();if(t>0)sset({t:t,ts:Date.now()})}catch(x){}}
+function leave(){menuOpen=false;closeMenu();hud(false);black();setTimeout(toTitle,500)}
+$('gear').onclick=openMenu;
+$('mres').onclick=function(){menuOpen=false;closeMenu();try{P.playVideo()}catch(x){}guard()};
+$('msave').onclick=function(){persist();$('conf').style.display='none';$('mtext').textContent='Progress saved.'};
+$('mexit').onclick=function(){persist();leave()};
+$('mcred').onclick=function(){$('conf').style.display='none';$('mtext').textContent='Created by Christian Batmanian with Claude (AI assistant by Anthropic). Unofficial fan project. Not affiliated with or endorsed by Rockstar Games or Take-Two Interactive. Grand Theft Auto is a trademark of its owners. Videos are streamed from YouTube and belong to their owners. The on-screen sticks are decorative and do not control the video.'};
+$('mquit').onclick=function(){$('mtext').textContent='';$('conf').style.display='flex'};
+$('cy').onclick=leave;$('cn').onclick=function(){$('conf').style.display='none'};
+// decorative sticks (visual only)
+function stick(el,kn){var id=null;function mv(t){var b=el.getBoundingClientRect(),dx=t.clientX-(b.left+b.width/2),dy=t.clientY-(b.top+b.height/2),m=Math.min(1,Math.hypot(dx,dy)/(b.width*.4)),a=Math.atan2(dy,dx);kn.style.transform='translate('+Math.cos(a)*m*b.width*.3+'px,'+Math.sin(a)*m*b.width*.3+'px)'}
+ function rs(){id=null;kn.style.transform=''}
+ el.addEventListener('touchstart',function(e){e.preventDefault();if(id===null){id=e.changedTouches[0].identifier;mv(e.changedTouches[0])}},{passive:false});
+ el.addEventListener('touchmove',function(e){e.preventDefault();for(var n=0;n<e.changedTouches.length;n++)if(e.changedTouches[n].identifier===id)mv(e.changedTouches[n])},{passive:false});
+ el.addEventListener('touchend',function(e){for(var n=0;n<e.changedTouches.length;n++)if(e.changedTouches[n].identifier===id)rs()});el.addEventListener('touchcancel',rs)}
+stick($('jl'),$('kl'));stick($('jr'),$('kr'));
+document.addEventListener('touchmove',function(e){if(!e.target.closest('#menu'))e.preventDefault()},{passive:false});
+</script></body></html>
